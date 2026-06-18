@@ -42,12 +42,17 @@ input:disabled {
 
 .pageShell {
   width: min(960px, calc(100% - 32px));
+  height: 100dvh;
   margin: 0 auto;
-  padding: 56px 0;
+  padding: 32px 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .hero {
-  margin-bottom: 28px;
+  flex: 0 0 auto;
+  margin-bottom: 20px;
 }
 
 .eyebrow {
@@ -80,12 +85,17 @@ h1 {
 }
 
 .gameCard {
-  padding: clamp(20px, 4vw, 40px);
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(16px, 3vw, 28px);
   border: 1px solid rgba(228, 216, 199, 0.9);
   border-radius: 28px;
   background: rgba(255, 250, 241, 0.88);
   box-shadow: var(--shadow);
   backdrop-filter: blur(12px);
+  overflow: hidden;
 }
 
 .storyHeader {
@@ -110,13 +120,20 @@ h1 {
 }
 
 .problem {
-  margin: 28px 0;
-  padding: 20px;
+  margin: 20px 0 16px;
+  padding: 18px;
   border-left: 5px solid var(--accent);
   border-radius: 16px;
   background: #ffffffb8;
   font-size: 1.04rem;
   line-height: 1.9;
+}
+
+.questionForm {
+  flex: 0 0 auto;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
 }
 
 .questionForm label {
@@ -163,7 +180,7 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin: 14px 0 24px;
+  margin: 0 0 16px;
 }
 
 .suggestions button {
@@ -173,11 +190,17 @@ h1 {
   border: 1px solid var(--line);
 }
 
+.chatArea {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
 .log {
   display: grid;
   gap: 12px;
   min-height: 120px;
-  margin-top: 20px;
 }
 
 .empty {
@@ -265,13 +288,19 @@ h1 {
 }
 
 .resetButton {
-  margin-top: 24px;
+  flex: 0 0 auto;
+  align-self: flex-end;
+  margin-top: 12px;
 }
 
 @media (max-width: 680px) {
   .inputRow,
   .storyHeader {
     flex-direction: column;
+  }
+  
+  .storyPanel {
+  flex: 0 0 auto;
   }
 
   .inputRow button,
