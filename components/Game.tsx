@@ -32,10 +32,17 @@ export function Game({ story }: Props) {
   const [error, setError] = useState<string | null>(null);
 
   const logEndRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     logEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, truth]);
+
+  useEffect(() => {
+    if (!isLoading && !truth) {
+      inputRef.current?.focus();
+    }
+  }, [isLoading, truth]);
 
   const questionCount = useMemo(
     () => messages.filter((message) => message.role === "user").length,
@@ -153,6 +160,7 @@ export function Game({ story }: Props) {
         <label htmlFor="question">質問する</label>
         <div className="inputRow">
           <input
+            ref={inputRef}
             id="question"
             value={question}
             onChange={(event) => setQuestion(event.target.value)}
