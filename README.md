@@ -45,6 +45,11 @@ lib/
     storyBank.ts        # 問題・真相データ
 ```
 
+## 開発ルール
+
+ブランチの命名規則や開発フローについては、  
+[開発ガイド](./docs/development-guide.md) を参照してください。
+
 ## Bedrockに差し替えるときの方針
 
 1. `lib/ai/bedrockJudge.ts` を作る
