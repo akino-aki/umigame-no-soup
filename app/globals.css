@@ -212,18 +212,20 @@ h1 {
 
 .message {
   position: relative;
+  width: fit-content;
+  max-width: 75%;
   padding: 14px 16px;
   border-radius: 18px;
   background: white;
 }
 
 .message.user {
-  margin-left: min(80px, 12vw);
+  justify-self: end;
   background: #eef8f8;
 }
 
 .message.judge {
-  margin-right: min(80px, 12vw);
+  justify-self: start;
 }
 
 .speaker {
