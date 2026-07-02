@@ -13,6 +13,8 @@ AI出題者とウミガメのスープで遊ぶための最小構成MVPです。
 
 ## 起動方法
 
+### 通常時
+
 ```bash
 npm install
 npm run dev
@@ -20,10 +22,55 @@ npm run dev
 
 ブラウザで `http://localhost:3000` を開きます。
 
-SageMaker Studio などでポート3000が使えない場合は、次のようにポートを変えられます。
+### SageMaker Studio
+
+SageMaker Studio Code Editorでは、アプリがポートプロキシ配下で公開されるため、静的ファイルの参照先を環境変数で指定する。
+
+#### 環境変数の設定
+
+リポジトリ直下に`.env.local`を作成し、以下を設定する。
+
+```env
+AI_PROVIDER=mock
+NEXT_ASSET_PREFIX=/codeeditor/default/ports/3000
+```
+
+`.env.local`はGitの管理対象外であり、リポジトリにはコミットしない。
+
+ポート番号を変更する場合は、`NEXT_ASSET_PREFIX`の末尾も同じポート番号へ変更する。
+
+例として4000番ポートを使用する場合は、以下のように設定する。
+
+```env
+NEXT_ASSET_PREFIX=/codeeditor/default/ports/4000
+```
+
+#### 依存パッケージのインストール
+
+別のOSで作成された`node_modules`が残っている場合、実行権限の違いにより`next: Permission denied`が発生することがある。
+
+SageMaker Studio上で依存パッケージを入れ直す。
 
 ```bash
-npm run dev -- -p 3001
+rm -rf node_modules .next
+npm ci
+```
+
+#### アプリの起動
+
+現在、SageMaker Studio上では`npm run dev`で起動すると、画面表示後に入力やクリック操作ができない事象が確認されている。
+
+そのため、SageMaker Studioでは本番相当の方法で起動する。
+
+```bash
+npm run build
+npm start
+```
+
+起動後、以下の形式のURLへアクセスする。
+
+```text
+https://<SageMakerのドメイン>/codeeditor/default/ports/3000/
 ```
 
 ## ファイル構成
