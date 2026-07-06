@@ -156,6 +156,8 @@ npm ci
 ```bash
 npm run build
 npm start
+npm run build
+npm start
 ```
 
 起動後、以下の形式のURLへアクセスする。
