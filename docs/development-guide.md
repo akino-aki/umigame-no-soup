@@ -123,6 +123,7 @@ IssueとPull Requestは、リポジトリ内のテンプレートを使用する
 
 - 機能追加：`feature.md`
 - 不具合修正：`bug-fix.md`
+- 開発環境・開発プロセスの改善：`chore.md`
 - Pull Request：`pull_request_template.md`
 
 ## その他
