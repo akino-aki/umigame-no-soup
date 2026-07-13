@@ -24,6 +24,9 @@ const labelText: Record<JudgeLabel, string> = {
   unknown: "不明",
 };
 
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
+const askApiUrl = apiBaseUrl ? `${apiBaseUrl}/ask` : "./api/ask";
+
 export function Game({ story }: Props) {
   const [question, setQuestion] = useState("");
   const [messages, setMessages] = useState<GameMessage[]>([]);
@@ -61,7 +64,7 @@ export function Game({ story }: Props) {
     setIsLoading(true);
 
     try {
-      const response = await fetch("./api/ask", {
+      const response = await fetch(askApiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question: trimmed, history: messages }),
