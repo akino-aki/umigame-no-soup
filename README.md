@@ -51,11 +51,13 @@
 
 ## 起動方法
 
-依存パッケージをインストールする。
+### 依存パッケージのインストール
 
 ```bash
 npm install
 ```
+
+### ローカル開発
 
 開発サーバーを起動する。
 
@@ -68,6 +70,65 @@ npm run dev
 ```text
 http://localhost:3000
 ```
+
+`NEXT_PUBLIC_API_BASE_URL`を設定していない場合は、Next.jsの`/api/ask`を使用する。
+
+この場合、質問判定には`AI_PROVIDER`で指定したモック判定またはBedrock判定が使用される。<br>
+`AI_PROVIDER`が未設定の場合は、モック判定を使用する。
+
+### 通常ビルド
+
+Next.jsアプリをビルドする。
+
+```bash
+npm run build
+```
+
+ビルドしたアプリを起動する。
+
+```bash
+npm start
+```
+
+ブラウザで以下を開く。
+
+```text
+http://localhost:3000
+```
+
+通常ビルドではNext.jsサーバーを起動するため、`NEXT_PUBLIC_API_BASE_URL`を設定していない場合も`/api/ask`を使用できる。
+
+### 静的ビルド
+
+S3やCloudFrontから配信する静的ファイルを生成する場合は、外部の質問判定APIのURLを指定する。
+
+リポジトリ直下に`.env.production.local`を作成し、API GatewayのベースURLを設定する。
+
+```text
+NEXT_PUBLIC_API_BASE_URL=https://<API ID>.execute-api.ap-northeast-1.amazonaws.com
+```
+
+`NEXT_PUBLIC_API_BASE_URL`には`/ask`を含めない。アプリ側でベースURLの末尾に`/ask`を追加する。
+
+静的ビルドを実行する。
+
+```bash
+npm run build:static
+```
+
+生成された静的ファイルは`out/`に出力される。
+
+ローカルで静的ファイルを確認する場合は、以下を実行する。
+
+```bash
+npx serve out
+```
+
+ターミナルに表示されたURLをブラウザで開く。
+
+静的ビルドでは、質問の送信先として`NEXT_PUBLIC_API_BASE_URL`で指定した外部APIを使用する。
+
+`NEXT_PUBLIC_API_BASE_URL`はビルド時に静的ファイルへ反映されるため、URLを変更した場合は再度`npm run build:static`を実行する。
 
 ## AI判定の切り替え
 
