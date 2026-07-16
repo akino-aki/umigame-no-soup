@@ -20,30 +20,37 @@
 - 正解時の真相表示
 - モック判定と Bedrock 判定の切り替え
 
-## ファイル構成
+## 主なファイル構成
 
-```text
+````text
 .
 ├── app/
 │   ├── api/
 │   │   └── ask/
-│   │       └── route.ts      # 質問判定API
-│   ├── layout.tsx            # ルートレイアウト
-│   ├── page.tsx              # トップページ
-│   └── globals.css           # 全体スタイル
+│   │       └── route.ts          # ローカル開発用の質問判定API
+│   ├── layout.tsx                # ルートレイアウト
+│   ├── page.tsx                  # トップページ
+│   └── globals.css               # 全体スタイル
 ├── components/
-│   └── Game.tsx              # ゲーム画面
+│   └── Game.tsx                  # ゲーム画面
+├── lambda/
+│   ├── ask.ts                    # AWS Lambda用の質問判定ハンドラー
+│   └── ask.test.ts               # Lambdaハンドラーの単体テスト
 ├── lib/
 │   ├── ai/
-│   │   ├── judge.ts          # AI判定クライアントの選択
-│   │   ├── mockJudge.ts      # モック判定
-│   │   ├── bedrockJudge.ts   # Bedrock判定
-│   │   └── types.ts          # AI判定の型定義
+│   │   ├── judge.ts              # AI判定クライアントの選択
+│   │   ├── mockJudge.ts          # モック判定
+│   │   ├── bedrockJudge.ts       # Bedrock判定
+│   │   └── types.ts              # AI判定の型定義
 │   └── server/
-│       └── storyBank.ts      # 問題・真相データ
-└── docs/
-    └── development-guide.md  # 開発ガイド
-```
+│       ├── askHandler.ts          # 質問判定APIの共通処理
+│       ├── askHandler.test.ts     # 共通処理の単体テスト
+│       └── storyBank.ts           # 問題・真相データ
+├── docs/
+│   └── development-guide.md      # 開発ガイド
+├── next.config.ts                # Next.js・静的ビルドの設定
+├── vitest.config.mts             # Vitestの設定
+└── package.json                  # 依存パッケージとnpmコマンド
 
 ## 開発ルール
 
@@ -55,7 +62,7 @@
 
 ```bash
 npm install
-```
+````
 
 ### ローカル開発
 
@@ -129,6 +136,26 @@ npx serve out
 静的ビルドでは、質問の送信先として`NEXT_PUBLIC_API_BASE_URL`で指定した外部APIを使用する。
 
 `NEXT_PUBLIC_API_BASE_URL`はビルド時に静的ファイルへ反映されるため、URLを変更した場合は再度`npm run build:static`を実行する。
+
+### 単体テスト
+
+Vitestを使用して、質問判定の共通処理とLambdaハンドラーをテストする。
+
+テストを監視モードで実行する。
+
+```bash
+npm test
+```
+
+テストを1回だけ実行する。
+
+```bash
+npm run test:run
+```
+
+CIなど、テスト結果を1回だけ確認したい場合は`npm run test:run`を使用する。
+
+テストでは判定処理をモックへ差し替えるため、Amazon Bedrockは呼び出されない。
 
 ## AI判定の切り替え
 

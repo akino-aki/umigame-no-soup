@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "build:static": "cross-env NEXT_OUTPUT=export next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "vitest",
+    "test:run": "vitest run"
   },
   "dependencies": {
     "@aws-sdk/client-bedrock-runtime": "^3.1075.0",
@@ -19,7 +21,9 @@
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "cross-env": "^10.1.0",
-    "typescript": "latest"
+    "typescript": "latest",
+    "vite-tsconfig-paths": "^6.1.1",
+    "vitest": "^4.1.10"
   },
   "overrides": {
     "postcss": "8.5.10"
