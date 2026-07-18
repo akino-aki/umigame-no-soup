@@ -117,6 +117,23 @@ git branch -d fix/19-restore-input-focus
 git fetch --prune
 ```
 
+## Pull Request作成時の自動確認
+
+`main`を対象としたPull Requestを作成または更新すると、GitHub ActionsによるCIが自動実行される。
+
+CIでは、以下を順番に確認する。
+
+- `npm run typecheck`によるTypeScriptの型チェック
+- `npm run test:run`による単体テスト
+- `npm run build`による通常ビルド
+- `npm run build:static`による静的ビルド
+
+すべての確認が成功してからPull Requestを`main`へマージする。
+
+確認に失敗した場合は、Pull RequestのChecksから失敗した処理とログを確認する。
+
+静的ビルドにはCI用のダミーAPI URLを使用する。CIからAPI Gateway、Amazon BedrockなどのAWSリソースは呼び出さない。
+
 ## IssueとPull Requestの書き方
 
 IssueとPull Requestは、リポジトリ内のテンプレートを使用する。
