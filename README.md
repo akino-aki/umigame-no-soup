@@ -51,6 +51,7 @@
 ├── next.config.ts                # Next.js・静的ビルドの設定
 ├── vitest.config.mts             # Vitestの設定
 └── package.json                  # 依存パッケージとnpmコマンド
+```
 
 ## 開発ルール
 
@@ -62,7 +63,7 @@
 
 ```bash
 npm install
-````
+```
 
 ### ローカル開発
 
